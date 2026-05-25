@@ -1,12 +1,12 @@
 # npm-library-template
 
 [![npm version](https://img.shields.io/npm/v/%40openhoo%2Fnpm-library-template?label=npm)](https://www.npmjs.com/package/@openhoo/npm-library-template)
-[![CI and Release](https://github.com/openhoo/npm-library-template/actions/workflows/ci.yml/badge.svg)](https://github.com/openhoo/npm-library-template/actions/workflows/ci.yml)
+[![CI](https://github.com/openhoo/npm-library-template/actions/workflows/ci.yml/badge.svg)](https://github.com/openhoo/npm-library-template/actions/workflows/ci.yml)
 ![coverage](https://img.shields.io/badge/coverage-92%25%2B-brightgreen)
 
 Template repository for Bun-powered TypeScript npm libraries in the OpenHoo style.
 
-It includes Bun, TypeScript, Biome, tsup, Bun test coverage, hooversion commit and release automation, npm provenance publishing, and Git hooks.
+It includes Bun, TypeScript, Biome, tsup, Bun test coverage, hooversion commit and release automation, Bun package publishing, and Git hooks.
 
 ## Create a project
 
@@ -25,7 +25,7 @@ Before publishing a new project from this template, replace the template identit
 - `package.json`: `name`, `description`, `repository.url`, `bugs.url`, and `homepage`
 - `README.md`: title, badges, install command, and package examples
 - `hooversion.config.ts`: package `name` and `scopes`
-- `.github/workflows/ci.yml`: npm package name in the "Check published package version" step
+- `.github/workflows/release.yml`: package name in the "Check published package version" step
 - `CHANGELOG.md`: package heading
 
 ## Install
@@ -65,7 +65,9 @@ bun run biome:fix
 
 ## Release
 
-Commits merged to `main` are evaluated by hooversion. When a release is produced, the CI workflow updates versioned files, creates the GitHub release, and publishes the package to npm with provenance.
+Commits merged to `main` are evaluated by hooversion after CI passes. When a release is produced, the release workflow opens a release PR so the required CI checks still gate `main`; after that PR merges, the workflow creates the tag, creates the GitHub release, and publishes the package with Bun.
+
+Configure `RELEASE_TOKEN` for release PR branches and `NPM_TOKEN` for Bun registry publishing.
 
 Use Conventional Commit messages so hooversion can lint commits and determine releases.
 
