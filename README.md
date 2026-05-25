@@ -6,7 +6,7 @@
 
 Template repository for Bun-powered TypeScript npm libraries in the OpenHoo style.
 
-It includes Bun, TypeScript, Biome, tsup, Bun test coverage, hooversion commit and release automation, Bun package publishing, and Git hooks.
+It includes Bun, TypeScript, Biome, tsup, Bun test coverage, hooversion commit and release automation, npm trusted publishing, and Git hooks.
 
 ## Create a project
 
@@ -68,6 +68,8 @@ bun run biome:fix
 Commits merged to `main` are evaluated by hooversion after CI passes. When a release is produced, the release workflow creates the release commit, tag, and GitHub release automatically, then publishes the package through npm trusted publishing.
 
 Configure npm trusted publishing for this repository and package on npmjs.com. The workflow uses Bun for installs, checks, and package metadata lookups; npm publishing uses the registry's trusted OIDC flow and does not require an npm token secret.
+
+If `main` is protected by rulesets that require pull requests, status checks, or code scanning, add `github-actions[bot]` (`User` actor id `41898282`) as an always-allowed bypass actor on those rulesets so Hooversion can push automatic release commits and tags.
 
 Use Conventional Commit messages so hooversion can lint commits and determine releases.
 
