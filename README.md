@@ -67,7 +67,7 @@ bun run biome:fix
 
 Commits merged to `main` are evaluated by hooversion after CI passes. When a release is produced, the release workflow opens a release PR so the required CI checks still gate `main`; after that PR merges, the workflow creates the tag, creates the GitHub release, and publishes the package with Bun.
 
-Configure `RELEASE_TOKEN` for release PR branches and `NPM_TOKEN` for Bun registry publishing.
+Configure `RELEASE_TOKEN` for release PR branches and `NPM_TOKEN` for Bun registry publishing. Until `RELEASE_TOKEN` is configured, the release workflow skips preparation and leaves main CI green.
 
 Use Conventional Commit messages so hooversion can lint commits and determine releases.
 
