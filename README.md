@@ -65,9 +65,9 @@ bun run biome:fix
 
 ## Release
 
-Commits merged to `main` are evaluated by hooversion after CI passes. When a release is produced, the release workflow opens a release PR so the required CI checks still gate `main`; after that PR merges, the workflow creates the tag, creates the GitHub release, and publishes the package with Bun.
+Commits merged to `main` are evaluated by hooversion after CI passes. When a release is produced, the release workflow creates the release commit, tag, and GitHub release automatically, then publishes the package through npm trusted publishing.
 
-Configure `RELEASE_TOKEN` for release PR branches and `NPM_TOKEN` for Bun registry publishing. Until `RELEASE_TOKEN` is configured, the release workflow skips preparation and leaves main CI green.
+Configure npm trusted publishing for this repository and package on npmjs.com. The workflow uses Bun for installs, checks, and package metadata lookups; npm publishing uses the registry's trusted OIDC flow and does not require an npm token secret.
 
 Use Conventional Commit messages so hooversion can lint commits and determine releases.
 
